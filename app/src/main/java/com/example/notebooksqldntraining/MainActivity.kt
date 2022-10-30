@@ -17,23 +17,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        onClick()
     }
 
     override fun onResume() {
         super.onResume()
         myDbManager.openDb()
-
-    }
-
-    fun onClickNew(view: View) = with(binding) {
-        bAdd.setOnClickListener {
-            startActivity(Intent(this@MainActivity, EditActivity::class.java))
-        }
-
     }
 
     override fun onDestroy() {
         super.onDestroy()
         myDbManager.closeDb()
     }
+
+    private fun onClick() = with(binding) {
+        bAdd.setOnClickListener {
+            startActivity(Intent(this@MainActivity, EditActivity::class.java))
+        }
+
+    }
+
+
 }
