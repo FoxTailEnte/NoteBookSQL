@@ -14,7 +14,7 @@ class MyDbManager(context: Context) {
     fun openDb(){
         db = myDbHelper.writableDatabase
     }
-    
+
     fun insertToDb(title: String, content: String){
         val values = ContentValues().apply {
             put(MyDbNameClass.COLUMN_NAME_TITLE, title)

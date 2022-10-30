@@ -1,8 +1,10 @@
 package com.example.notebooksqldntraining
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.example.notebooksqldntraining.databinding.ActivityEditBinding
 import com.example.notebooksqldntraining.databinding.ActivityMainBinding
 import com.example.notebooksqldntraining.db.MyDbManager
 import java.util.zip.Inflater
@@ -10,6 +12,7 @@ import java.util.zip.Inflater
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val myDbManager = MyDbManager(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -19,23 +22,14 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         myDbManager.openDb()
-        val dataList = myDbManager.readDbData()
-        for (item in dataList) {
-            binding.tvTest.append(item)
-            binding.tvTest.append("\n")
-        }
+
     }
 
-    fun onClickSave(view: View) = with(binding) {
-        bSave.setOnClickListener {
-            tvTest.text = ""
-            myDbManager.insertToDb(edTitle.text.toString(), edContent.text.toString())
-            val dataList = myDbManager.readDbData()
-            for (item in dataList) {
-                tvTest.append(item)
-                tvTest.append("\n")
-            }
+    fun onClickNew(view: View) = with(binding) {
+        bAdd.setOnClickListener {
+            startActivity(Intent(this@MainActivity, EditActivity::class.java))
         }
+
     }
 
     override fun onDestroy() {
